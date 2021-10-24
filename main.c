@@ -180,5 +180,14 @@ int main()
 	//You can test your functions here
 	//We will modify the main() when grading
 
+	printf("Atoif : +278 = %d\n", atoiF("+278"));
+	printf("Atoif : '   -15' = %d\n", atoiF("    -15"));
+	printf("Atoif : '+278 bla' = %d\n", atoiF("278 bla"));
+	printf("Atoif : 'words123' = %d\n", atoiF("words123"));
+
+	printf("max occur : 'We few, we happy few, we band of brothers' = %c\n", maxOccurChar("We few, we happy few, we band of brothers"));
+
+
+
 	return 0;
 }
