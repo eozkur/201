@@ -119,7 +119,8 @@ char maxOccurChar(char str[])
 	int max = 0;
 	int maxind = -1;
 
-	for(int i = 0; i < 170; i++){
+	int i = 0;
+	for(i = 0; i < 170; i++){
 		if(max < freqArr[i]){
 			max = freqArr[i];
 			maxind = i;
@@ -159,11 +160,11 @@ int atoiF(char str1[])
 			if(digits == 0 && str1[i] == '-'){
 				sign = -1;
 			}
-			else if(str[i] < 48 || str[i] > 57){
+			else if(str1[i] < 48 || str1[i] > 57){
 				return value;
 			}
 			else{
-				int number = str[i] - '0';
+				int number = str1[i] - '0';
 				value = value * 10;
 				value += number;
 			}
