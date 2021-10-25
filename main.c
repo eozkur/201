@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -44,13 +45,14 @@ char* occludeStr(char str1[], int n)
 
 	// write your code below
 
-	char* ret;
+	char* ret = malloc(strlen(str1) * sizeof(char));
 
-	for(int i=0; i < n; i++){
-		str1[i] = '*';
+	for(int i=0; i < strlen(str1); i++){
+		ret[i] = str1[i];
+		if(i < n) ret[i] = '*';
 	}
 
-    return str1;
+    return ret;
 	
 }
 
@@ -85,16 +87,47 @@ int findKey(char str[])
  */
 int numOccur(char str1[] ,char str2[])
 {
+
+	
 	// write your code below
-	char* nstr1 = tolower(str1);
-	char* nstr2 = tolower(str2); 
-	int count = 0;
-	while(strstr(str2, str1) != NULL){
-		count++;
+
+	char* nstr1 = malloc(strlen(str1) * sizeof(char));
+	char* nstr2 = malloc(strlen(str2) * sizeof(char));
+	int counter = 0;
+	
+	for(int i = 0; i < strlen(str1); i++){
+	
+		nstr1[i] = tolower(str1[i]);
+	
 	}
 
 
-	return count;
+	for(int i = 0; i < strlen(str2); i++){
+	
+		nstr2[i] = tolower(str2[i]);
+	
+	}
+	
+	printf("strings %s %s\n",nstr1,nstr2);
+	
+	for(int i = 0; i < strlen(nstr2); i++){
+		
+		if(nstr2[i] == nstr1[0]){
+		counter++;
+		printf("count : %d\n",counter);
+			for(int j = 1; j < strlen(nstr1); j++){
+				if(nstr2[i + j] != nstr1[j]){
+					counter--;
+					j = strlen(nstr1);
+				}			
+			}	
+			
+		}
+		
+	}
+	
+	
+	return 0;
 	
 }
 
@@ -107,7 +140,7 @@ int numOccur(char str1[] ,char str2[])
 char maxOccurChar(char str[])
 {
 	// write your code below
-	int freqArr[170];
+	int freqArr[250];
 	for(int i = 0; i < strlen(str); i++){
 		if(str[i] == ' '){
 
@@ -118,16 +151,19 @@ char maxOccurChar(char str[])
 
 	int max = 0;
 	int maxind = -1;
-
+	char ctoret = '0';
 	int i = 0;
+	
 	for(i = 0; i < 170; i++){
 		if(max < freqArr[i]){
 			max = freqArr[i];
+			ctoret = i;
 			maxind = i;
 		}
 	}
 
-	char ret =  i;
+	printf("c : %c", ctoret);
+	char ret =  maxind;
 	return  ret;
 }
 
@@ -160,6 +196,9 @@ int atoiF(char str1[])
 			if(digits == 0 && str1[i] == '-'){
 				sign = -1;
 			}
+			else if(digits == 0 && str1[i] == '+'){
+				sign = 1;
+			}
 			else if(str1[i] < 48 || str1[i] > 57){
 				return value;
 			}
@@ -188,7 +227,25 @@ int main()
 
 	printf("max occur : 'We few, we happy few, we band of brothers' = %c\n", maxOccurChar("We few, we happy few, we band of brothers"));
 
+	printf("equalStr : same = %d, not = %d\n", equalStr("words123", "words123"),equalStr("asd","adsff") );
+	
+	
+	char* res = occludeStr("words123",3);
+	
+	
+	int i = 0;
+	printf("occludeStr : 'words123', 3 : %s\n", res);
+	//for(i = 0; i < strlen(res); i++){
+		
+	//	printf("%c", res[i]);
+	//}
 
+	printf("A lower : %c\n", tolower('A'));
+	
+	//int a = numOccur("ASDF","assdfasfasf");
+	printf("numOccur : 'we','We few, we happy few, we band of brothers', %d\n", numOccur("as","as sdfasf as fdgf as"));
+	
+	printf("findKey : 'words123', 'alikey' = %d, %d\n", findKey("words123"),findKey("alikey"));
 
 	return 0;
 }
